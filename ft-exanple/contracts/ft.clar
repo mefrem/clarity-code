@@ -3,12 +3,13 @@
 ;; version: 1.0
 ;; summary: A basic fungible token contract
 ;; description: This contract implements the minimum requirements of a Stacks fungible token
+;; called "Kongbucks", a currency in the fictional Snowcrash universe.
 
 ;; traits
 (impl-trait 'SP3FBR2AGK5H9QBDH3EEN6DF8EK8JY7RX8QJ5SVTE.sip-010-trait-ft-standard.sip-010-trait)
 
 ;; token definitions
-(define-fungible-token kongbucks TOKEN_MAX_SUPPLY)
+(define-fungible-token kongbucks TOKEN_MAX_SUPPLY) ;; You can replace all instances of this placeholder
 
 ;; constants
 (define-constant TOKEN_MAX_SUPPLY u1000000) ;; 1_000_000 KBUX with 1T microtokens
@@ -16,7 +17,7 @@
 (define-constant TOKEN_NAME "Kongbucks")
 (define-constant TOKEN_SYMBOL "KBUX")
 (define-constant TOKEN_DECIMALS u6)
-(define-constant TOKEN_URI u"https://hiro.so") ;; TODO understand why get-token-uri response is different for SIP-010 than sip-009
+(define-constant TOKEN_URI u"https://hiro.so") 
 
 ;; errors
 (define-constant ERR-INSUFFICIENT-BALANCE (err u1))
@@ -29,7 +30,7 @@
 (define-public (transfer (amount uint) (sender principal) (recipient principal) (memo (optional (buff 34))))
   (if (is-eq tx-sender sender)
     (begin
-      (try! (ft-transfer? kongbucks amount sender recipient)) ;; TODO placeholder callout
+      (try! (ft-transfer? kongbucks amount sender recipient)) ;; token placeholder
       (print memo)
       (ok true)
     )
@@ -40,7 +41,7 @@
   (ok (some TOKEN_URI)))
 
 ;; Mint tokens (open to anyone)
-(define-public (mint (amount uint)) ;; TODO Ask @Brice if this is a bad form of distribution... like a bad, unsafe practice or something
+(define-public (mint (amount uint)) ;; TODO Ask @Hugo if this is a bad form of distribution... like a bad, unsafe practice or something
     (ft-mint? kongbucks amount tx-sender) ;; TODO placeholder callout
 )
 
